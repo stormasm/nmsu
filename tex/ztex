@@ -1,0 +1,9 @@
+latex chap0
+latex chap1
+latex chap2
+latex chap3
+latex chap4
+latex chap5
+latex chap6
+latex chap7
+latex bib

@@ -1,0 +1,171 @@
+\documentstyle[12pt]{report}
+\parskip 0.20in
+\textheight 8.75in
+\textwidth 6.0in
+\topmargin -0.25in
+\oddsidemargin 0.40in
+
+\begin{document}
+\baselineskip 0.30in
+
+\setcounter{chapter}{3}
+\setcounter{page}{19}
+
+\chapter{The Binary Encoded Problems}	
+
+	Learning algorithms are used on two major types of problems.
+The two types of problems are continuous and discrete.  In this paper only
+simple discrete problems are studied.
+
+ 	Continuous problems usually fall into the category of prediction
+of a time series.  For example, if one has daily stock prices of
+I.B.M. for the first half of a year, then one could train the learning
+algorithm using the first six months data.  After the training has
+been completed, then one could try to predict the next week of stock
+prices for I.B.M..  Similar experiments could be set up to predict sun
+spots in order to warn NASA of the next big sun spot.
+
+	Although these may sound like useful, profitable experiments,
+in reality these time series are extremely difficult to predict.  As
+with any real world data set, there is always a certain amount of
+observational noise.  Since one can not determine easily how much
+noise is in a data set, it is very difficult to analyze the results.
+One of the important variables in local linear techniques is the
+dimensionality of the problem.  With real world data, choosing a
+dimension is extremely arbitrary.  One of the few approaches to
+finding the dimension of a time series is by calculating the fractal
+dimension.  The algorithm for calculating fractal dimension of a time
+series is not yet well understood, see Barnsley [1988]. 
+
+	For the above stated reasons, simple discrete problems are
+much easier to use for testing learning algorithms.  The discrete
+learning problems chosen in this paper have no noise in the data.
+Also, since the domains are simple to understand, dimensions of the
+data sets in this paper are easy to figure out.  By avoiding these
+uncertainties, the reliability of the results are much more accurate.
+
+	There is however, still one major obstacle with discrete
+problems and that is the task of encoding the problem so that the
+learning algorithm can accurately represent what is going on.  
+
+	For example, if the algorithm is acting on a data set of
+English words, should the words be represented by unique symbols or
+the individual letters of the word.  If the algorithm is learning to
+distinguish objects in a room, what representation should be used so
+that the learning technique can understand many different objects.
+Finally, what if the algorithm is trying to learn how to pick up a
+full glass of water; how is this accurately represented ?  As one can
+quickly see, the problem of encoding a discrete task so that the
+learning algorithm can act on the data set is extremely non trivial.
+
+	Because the purpose of this paper is mainly to compare two
+types of learning algorithms, and not the optimal way to encode or
+represent a problem; very simple binary encoded problems were chosen.
+Once these techniques are more widely understood both mathematically
+and fundamentally, then harder problems should indeed be attempted.
+But for now, simple problems is the best way to get the point across
+without adding more levels of abstraction, or more significantly
+complication. 
+
+\section{The Actual Problems}
+
+	Simple binary encoded problems are convenient for analyzing
+empirical results.  By using simple problems, people can work through
+the examples by hand and prove to themselves exactly what these local
+linear techniques are doing mathematically.  Since the focus of this
+paper is to compare and contrast two learning algorithms, then the
+problems should simply serve as a means to an end.  Future research in
+this area could start to address more difficult problems; however, for
+now the local linear ideas should be understood with simple binary
+encoded discrete problems.
+
+\subsection{Three Bit Addition}
+
+	Simple three bit addition
+
+	$0\  1\  0\   +\   1\  0\  0\   \Longrightarrow  0\ 1\  1\  0$
+
+        $1\  0\  1\   +\   0\  1\  1\   \Longrightarrow  1\ 0\  0\  0$
+
+	Note, the set will contain all permutations of three bit
+addition.  So in total there are 64 elements in the training set.
+Note, that when you add two three bit numbers the max you can have for
+an output is a four bit number.  So, the input dimension to this
+problem is six and the output dimension is four.
+
+\subsection{Three Bit Multiplication}
+	
+	Simple three bit multiplication
+
+	$0\  1\  0\   *\  1\  0\  0\   \Longrightarrow  0\ 0\ 1\ 0\ 0\ 0$
+
+        $1\  1\  1\   *\  1\  1\  0\   \Longrightarrow  1\ 0\ 1\ 0\ 1\ 0$
+
+	Note, the set will contain all permutations of three bit
+multiplication.  So in total there are 64 elements in the training set.
+Note, that when you multiply two three bit numbers the max you can
+have for an output is a six bit number.  So, the input dimension to
+this problem is six and the output dimension is six.
+	
+
+\subsection{The Count Problem}
+
+	Given a string of 1's and 0's simply count up the number of
+1's in the string and output that particular number.
+
+	For example,
+		
+		$0\  1\  0\  1\  0\  0\  \Longrightarrow \ 0\  1\  0$
+
+                $1\  1\  1\  0\  0\  0\  \Longrightarrow \ 0\  1\  1$
+
+                $1\  0\  0\  0\  1\  0\  \Longrightarrow \ 0\  1\  0$
+
+\subsection{The Parity Problem}
+
+	The parity problem determines whether there is an even or odd
+number of one's in the bit string.  If there are even number of ones
+it outputs a zero, and if there are an odd number of ones it outputs a
+one. 
+
+	For example,
+
+		$0\  1\  0\  1\  0\  0\  \Longrightarrow \ 0$
+
+                $1\  1\  1\  0\  0\  0\  \Longrightarrow \ 1$
+
+                $1\  0\  0\  0\  1\  0\  \Longrightarrow \ 0$
+
+\subsection{The Encoding Problem}
+
+	The encoding problem simply reproduces the input string on the
+output string.
+
+	For example,
+
+	       $0\ 1\ 0\ \Longrightarrow 0\ 1\ 0$
+
+	       $0\ 1\ 1\ \Longrightarrow 0\ 1\ 1$
+
+	       $1\ 0\ 0\ \Longrightarrow 1\ 0\ 0$
+
+\subsection{The Binary Complement Problem}
+
+	The binary complement problem simply outputs the exact opposite
+of the input string.
+
+	For example,
+
+	       $0\ 1\ 0\ \Longrightarrow 1\ 0\ 1$
+
+	       $0\ 1\ 1\ \Longrightarrow 1\ 0\ 0$
+
+	       $1\ 0\ 0\ \Longrightarrow 0\ 1\ 1$
+
+\section{The Experiments}
+
+	Note the number of bits in the actual experiments may slightly
+differ from the above examples.  However, the significance of this
+section was to outline the definition of each problem.  
+
+\end{document}

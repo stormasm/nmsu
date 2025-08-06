@@ -1,0 +1,297 @@
+\documentstyle[12pt]{report}
+\parskip 0.20in
+\textheight 8.75in
+\textwidth 6.0in
+\topmargin -0.25in
+\oddsidemargin 0.40in
+
+\begin{document}
+\baselineskip 0.30in
+
+\setcounter{chapter}{1}
+\setcounter{page}{4}
+\chapter{Back Propagation}	
+
+
+	Back propagation is the most common learning algorithm in use
+today.  Its popularity started mainly from a paper published by
+Rumelhart, Hinton, and Williams [1986].  The data structure that back
+propagation acts on is called a neural network.  The idea of neural
+networks was introduced by McCulloch and Pitts [1943].
+
+	One of the major motivations for having back propagation as
+one of the learning algorithms is to use it as a bench mark against
+other learning algorithms which are not nearly as common.  Because
+back propagation is so common, the experimental results can be much
+better understood and validated.  This practice is very common in any
+type of research on algorithms.  Researchers take the best known
+algorithm that does something, and shows how the new algorithm is
+superior for one reason or another.
+
+	From a simple point of view, a neural network is a layered
+graph with a set of input nodes, hidden nodes, and output nodes.  The
+nodes are connected by a set of weights.  The connectivity of the
+network is purely arbitrary depending on the problem.  The basic
+question of how to connect the nodes is an open research problem.  In
+all the examples in this paper the input units will be connected to
+the hidden units and the hidden units will be connected to the output
+units.
+
+\section{Number of Input Units and Output Units}
+
+	The straight forward aspect of building a neural network is
+calculating the number of input units and output units.  This can
+easily be determined by looking at the constraints on the problem.
+For example, if you want to input integers in binary form that have a
+range of 0 to 240, then you need eight input units to represent all
+possible values.  The same analogy holds true for the number of output
+units.  If the problem is addition and two numbers are being added
+then the maximum number of output units to represent the largest value
+is chosen.  The same is true for multiplication.  If the problem is to
+count the number of bit positions in a five bit string, then three
+output units would be sufficient to represent the number five.  The
+parity problem only requires one output unit since the answer is
+simply only one or zero.
+
+\section{The Number of Hidden Units}
+
+	The tricky part to designing a neural network is coming up
+with the number of hidden nodes.  Up till now, the traditional method
+for overcoming this problem has been trial and error.  However, for
+some very restricted types of boolean valued problems some methods
+have been devised by Baum [1985] to determine the minimum number of
+hidden nodes needed to solve a particular problem.  
+
+	The number of hidden units to choose for a particular problem
+is an open area of research, but in these experiments the number of
+hidden units was determined by trial and error.  A number was chosen
+that appeared to be a bit large, and then back propagation was run on
+that particular number of hidden units.  If the network learned the
+function perfectly, then a smaller number was chosen and back
+propagation was run again.  This procedure was repeated until the
+minimum number of hidden units was found which would learn the input
+output mapping perfectly.  This is a reasonable method for determining
+the number of hidden units and also the most common method in use
+today.
+
+	Using the optimal number of hidden units is very significant
+because if you use too many hidden units the network will {\it over
+learn} the problem.  This is not so much a factor when one is just
+trying to get a network to learn an input output mapping, but the
+optimal network truly comes into play when the generalization phase
+arises.  Even if there are too many hidden units in a network, chances
+are the network will learn the input output mapping, but the
+generalization score will go way down.  There are advantages to having
+more than the optimal number of hidden units in a network.  One of the
+big advantages is that the network will converge a lot faster meaning
+that it won't take the network nearly as long to learn a particular
+function.  When dealing with big problems, the difference in
+convergence time could be several days or even weeks.  So sometimes
+for starters people will begin with an over abundance of hidden units
+just to see if the network can learn a particular input output
+mapping.  It is also a good first approximation to over estimate the
+number of hidden units a network will use.
+
+\section{Topology of the Weight Space}
+
+	The topology of the weight space has not yet been discussed in
+this paper and it is worth mentioning the analogy that is depicted in
+the literature.  The weight space is typically equated to a mountain
+range with steep narrow canyons and high mountain peaks.  Ideally, if
+one was trying to find the highest peak in the range they would simply
+get in an airplane and fly above the range and point out the highest
+peak.  However, the search in neural networks is very local and
+basically the algorithm can only see one step in front of itself.
+This causes many problems, especially since one never knows if they
+are at the lowest point in the range.  All these ideas relate to
+optimization theory and function approximation which have been studied
+for quite a few years in mathematics.
+   
+\section{The Learning Rate}
+   
+	Another major factor in the study of neural networks is the
+learning rate.  The learning rate determines how fast a particular
+network will converge to a solution.  In some cases, it is
+advantageous to converge slowly to a particular solution in order to
+avoid getting trapped in a local minimum.  A learning algorithm called
+{\it simulated annealing} does fairly well at finding a global minimum
+but the disadvantage is that the algorithm is very slow.  Associated
+with the learning rate is a another term called the momentum.  It is
+used to accelerate the learning rate in certain areas of the weight
+space.  Topologically it helps get out of long ravines which cause
+oscillations in the weight space.  The momentum term helps push the
+search out of steep narrow gullys which are usually local minima.
+
+\section{The Algorithm}
+
+	Back propagation is an algorithm which fits a multi
+dimensional surface or function to a set of input output pairs.  The
+values of the weights in the neural network defines the multi
+dimensional surface.  The algorithm is intuitively very simple.  Given
+a set of input output pairs, adjust the weights or surface so that all
+pairs will be satisfied to a certain accuracy delta.  One way to write
+this algorithm would be to vary all the weights in some ordered manner
+until you hit on the proper combination of weights.  This method would
+eventually find a solution if one exists, however, from a
+combinatorial point of view it is not very efficient.
+
+	There are two main components to this algorithm which can be
+thought of as the data structures.  One main component is the set of
+weights in the network and the other component is the set of input
+output pairs which the network is trying to learn.  The over all
+principle of the algorithm is fairly simple.  Given a particular input
+pattern, feed or propagate those values through the network until it
+has reached an output layer.  Once reaching the output layer, then
+compare the values of the output layer with the {\it teaching} or {\it
+target} layer.  The difference between the actual value and the {\it
+teaching} value are then propagated back through the network.  In
+other words, the exact opposite set of steps is performed going
+backwards through the network as opposed to forwards through the
+network.  Once, the {\it forward} and {\it backward} pass have been
+completed then the set of weights are updated to reflect how the
+network has changed in that particular pass.  
+
+\subsection{A Detailed Example of Back Propagation}
+
+	The easiest way to explain back progation is to step through a
+very simple example which depicts exactly how the algorithm works.
+{\it Figure 1} shows that there are three layers in the network; two
+units in the input layer denoted 1 and 2, one unit in the hidden layer
+denoted 3, and two units in the output layer denoted 4 and 5.  Also
+note that unit 1 is connected to unit 3 via a weight labeled {\it a},
+unit 2 is connected to unit 3 via a weight labeled {\it b}, unit 3 is
+connected to unit 4 via a weight labeled {\it c} and unit 3 is
+connected to unit 5 via a weight labeled {\it d}.  The terminology
+used for this network structure is fully connected, in other words all
+units in the input layers are connected to units in the hidden layers,
+and all units in the hidden layers are connected to units in the
+output layers.  In all the examples in this paper the networks are
+fully connected, but for certain problems only specific units are
+connected to each other.
+
+	The first step to the back prop algorithm is to initialize all
+the weights to small random values between $-0.30$ and $0.30$.  For
+this particular example let 
+
+	weight $a = .1$, 
+
+	weight $b = .2$, 
+
+	weight $c = .3$ 
+
+	weight $d = .2$
+
+	Let the input output mapping for this particular problem be (0
+1 yields 1 0).  So, the initial input for 
+
+	input $unit 1 = 0$, 
+
+	input $unit 2 = 1$,
+
+        target $unit 4 = 1$ 
+
+	target $unit 5 = 0$.
+
+	Now that the all the weights and units are initialized the
+first thing that happens is called the forward pass.  The calculations
+for this subroutine proceeds as follows.
+
+	$Unit 1 * Weight a = 0 * .1 = 0$
+
+	$Unit 2 * Weight b = 1 * .2 = .2$
+
+	We are now able to calculate the input value for unit 3 which
+is simply the sum of the above two calculations.  However, there is
+one further twist which is not obvious and that is that once the sum
+is calculated then the {\it sigmoid} of the sum is the final answer.
+
+	The sigmoid function is defined to be
+
+	$$1 \over {1 + e ^ {-x}}$$
+
+	Where x represents the sum of all the inputs coming into a
+particular unit.  In this case $x = 0 + 0.2$
+
+	There are some special properties of the sigmoid function
+which is worth mentioning.  The output of the sigmoid function will
+always be between zero and one independent of the size of the sum of
+the units.  The following table is a rough outline of sigmoid values.
+
+	$sigmoid(-3.00) = 0.05$
+
+	$sigmoid(-2.00) = 0.12$
+
+	$sigmoid(-1.00) = 0.27$
+
+	$sigmoid( 0.00) = 0.50$
+
+	$sigmoid( 1.00) = 0.73$
+
+	$sigmoid( 2.00) = 0.88$
+
+	$sigmoid( 3.00) = 0.95$
+
+	So, the new calculated input value for unit 3 is
+
+	$sigmoid(0 + .200) = .55$.  
+
+	The next step is to continue to propagate the newly found
+input value from the hidden layer to the output layer.
+
+	$Unit 3 * Weight c = .55 * .3 = .165$
+
+	$Unit 3 * Weight d = .55 * .2 = .110$
+
+	Now we take the sum and calculate the sigmoid value to come up
+with new input values for units 4 and 5.
+
+	$unit 4 = sigmoid(.165) = .54$
+
+	$unit 5 = sigmoid(.110) = .53$
+
+	At this point in time we have completed the forward pass.  In
+the case of the {\it delivery phase} which is discussed in chapter 6
+this would be the end of the algorithm.  However, since we are in the
+training phase we need to do several more things.  The details of the
+rest of the algorithm will not be discussed in this paper due to the
+fact that the derivation of the formulas are based upon advanced
+calculus.  However, the general idea of what happens will be outlined.
+
+	Once the forward pass is completed, the error signal is
+calculated.  The calculation of the error signal is based on looking
+at the current values which are (.54, .53) and the target values
+which are (1 0).  The difference between these values is propagated
+back through the network in a similar fashion to the forward pass.
+This phase of the algorithm is called the backward pass.  Once the
+backward pass is complete the weights of the network are changed to
+reflect the updating of the information.  
+
+	The algorithm starts over with the forward pass immediately
+after the weights have been changed.  This method is continued until
+the algorithm has adjusted the weights so that when the input values
+are propagated through the network the {\it expected or teaching}
+values are the outputs.
+
+\section{The Final Network}
+
+	After training the network, it just may happen that some of
+the weights are near zero. If this does happen, that particular
+connection is very weak and does not play a major role in the over all
+network structure.  In general, the higher the value of the weights in
+the network the more active role that particular set of nodes plays in
+the problem.
+
+\section{The Mathematics of Back Propagation}
+
+	The original version of this paper contained a derivation of
+the back propagation mathematics.  However, in this newer version the
+mathematics of back propagation has been intentionally omitted because
+an understanding of advanced calculus is required to fully understand
+the derivation of this technique.  It has been determined that for the
+audience of this paper, they can do further research in this area by
+simply reading the article in [McClelland 1986].  The mathematics of
+chapter three has been intentionally left in since it only deals with
+basic linear algebra.  This point is also essential in understanding
+why the local linear method is simpler and much more intuitive.
+
+\end{document}

@@ -1,0 +1,141 @@
+\documentstyle[12pt]{report}
+\parskip 0.20in
+\textheight 8.75in
+\textwidth 6.0in
+\topmargin -0.25in
+\oddsidemargin 0.40in
+\appendix
+\begin{document}
+\baselineskip 0.30in
+
+\setcounter{page}{54}
+\setcounter{chapter}{1}
+
+\chapter{}
+
+\section{Directional Derivatives and Gradients}
+
+	This section is taken from both the discussion and examples
+in Leithold [1976].
+
+	``We now generalize the definition of a partial derivative to
+obtain the rate of change of a function with respect to any direction.
+This leads to the concept of a {\it directional derivative}.''
+
+	Let $f$ be a function of two variables x and y.
+        Let {\bf i} and {\bf j} be unit vectors.
+
+	Let U be a unit vector where $\mid U \mid\  =\  1$ and $U\  =\  cos
+\theta i\  +\  sin \theta j$
+
+	Then the directional derivative of $f$ in the direction of U,
+denoted by $D_Uf$, is given by :
+	$$D_U f(x,y)\  =\  \lim_{h\to0}{f(x + h\  cos \theta,\  y + h\  sin
+\theta)\  -\  f(x,y) \over h}$$
+
+	The directional derivative gives the rate of change of the
+function values $f(x,y)$ with respect to the direction of the unit
+vector U.
+
+	If $U = i$, then $cos \theta = 1$ and $sin \theta = 0$ then
+        $$D_i f(x,y)\  =\  \lim_{h\to0} {f(x + h,\ y)\  -\  f(x,y) \over
+h}\  =\  {\partial f \over \partial x}$$
+which is the partial derivative of $f$ with respect to x.
+
+	If $U = j$, then $cos \theta = 0$ and $sin \theta = 1$ then
+        $$D_j f(x,y)\  =\  \lim_{h\to0} {f(x,\  y + h)\  -\  f(x,y) \over
+h}\  =\  {\partial f \over \partial y}$$
+which is the partial derivative of $f$ with respect to x.  
+
+	So we see that $\partial f \over \partial x$ and $\partial f
+\over \partial y$ are special cases of the directional derivative in
+the directions of the units vectors i and j.
+
+	If $f$ is a differentiable function of x and y, and $U \ = \ cos
+\theta i \ + \ sin \theta j$ 
+
+	then 	
+
+	$$D_Uf(x,y) = f_x(x,y) \cos\theta \ + \ f_y(x,y) sin\theta$$
+        
+	An example will illustrate the idea,
+
+	Let 
+
+       $f(x,y)\ = \ 3x^2 - y^2 + 4x$  and  
+
+       $U \ = \ cos{ 1\over 6}\pi i + \sin {1 \over 6}\pi j$
+
+       Then, 
+
+       $f_x(x,y)\ = \ 6x + 4$  and  
+
+       $f_y(x,y) = -2y$.
+
+	$D_Uf(x,y)\ = \ (6x + 4){1 \over 2}\sqrt3\ + \ (-2y){1
+\over 2}\ = \ 3\sqrt3x \ + \ 2\sqrt3\ - \ y$
+
+{\bf End of example}
+
+	The directional derivative can be written as the dot product
+of two vectors. 
+	$$f_x(x,y) cos \theta\ + \ f_y(x,y) sin \theta = (cos \theta i
+\ +\ sin \theta j) \cdot [f_x(x,y)i\ + \ f_y(x,y)j]$$
+
+	and therefore...
+	$$D_Uf(x,y) \ = \ (cos \theta i \ + \ sin \theta j) \cdot
+[f_x(x,y)i \ + \ f_y(x,y)j]$$
+
+	The second vector on the right hand side of the above equation
+is a very important one, and it is called the {\it gradient} of the
+function $f$.  The symbol that is used for the gradient of $f$ is ${\bf \nabla} f$.
+
+	If $f$ is a function of two variables x and y and $f_x$ and
+$f_y$ exist, then the {\it gradient} of $f$, is defined by
+	$${\bf \nabla}f(x,y) = f_x(x,y)i\ + \ f_y(x,y)j$$ 
+	or it can be written as
+	$$D_Uf(x,y)\ = \ U \cdot {\bf \nabla}f(x,y)$$
+
+	Therefore, any directional derivative of a differentiable
+function can be obtained by dot multiplying the gradient by a unit
+vector in the desired direction.
+
+	If $\theta$ is the radian measure of the angle between the two
+vectors U and ${\bf \nabla}f$, then,
+
+	$$U \cdot {\bf \nabla}f \ = \ |U| \  | {\bf \nabla} f|\  cos \theta$$
+
+	which leads to $D_Uf = |U| \ |{\bf \nabla}f|\ cos \theta$
+
+	We see that $D_Uf$ will be a maximum when $cos \theta\ = \ 1$,
+($\theta = 0$) that is, when U is in
+the direction of ${\bf \nabla}f$; and in this case, $D_Uf\ = \ |{\bf
+\nabla}f|$.  Hence, the gradient of a function is in the direction in
+which the function has its maximum rate of change.  In particular, on
+a two dimensional topographical map of a landscape where z units is
+the elevation at a point (x,y) and $z\ = \ f(x,y)$, the direction in
+which the rate of change of z is the greatest is given by ${\bf
+\nabla}f$ (x,y); that is, ${\bf \nabla}f(x,y)$ points in the direction
+of steepest ascent.  This accounts for the name {\it gradient} (the
+grade is steepest in the direction of the gradient).
+
+	For example, given $f(x,y)\ = \ 2x^2\ - \ y^2\ +\  3x\ -\  y$
+
+	Find the maximum value of $D_Uf$ at the point where $x \ = \ 1$ and $y \
+= \ -2$.
+
+	$f_x(x,y)\ = \ 4x\ + \ 3$ and 
+
+        $f_y(x,y)\ = \ -2y\ - \ 1$. 
+
+	So, 
+        ${\bf \nabla}f(x,y) \ = \ (4x + 3)i \ + \ (-2y \ - \ 1)j$
+
+	Therefore,  
+        ${\bf \nabla}f(1,-2)\ = \ 7i\ + 3j$
+
+	So the maximum value of $D_Uf$ at the point (1, -2) is
+
+	$|{\bf \nabla}f(1,-2)|\ = \ \sqrt{49\ + \ 9}\ = \sqrt58$
+
+\end{document}

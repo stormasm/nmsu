@@ -1,0 +1,451 @@
+\documentstyle[12pt]{report}
+\parskip 0.20in
+\textheight 8.75in
+\textwidth 6.0in
+\topmargin -0.25in
+\oddsidemargin 0.40in
+
+\begin{document}
+\baselineskip 0.30in
+
+\setcounter{chapter}{4}
+\setcounter{page}{24}
+
+\chapter{Experimental Results}
+	
+	One of the key issues in comparing the methods is coming up
+with a set of problems that truly represent the diversity in a binary
+input output mapping.  It is very important to keep in mind that to
+the algorithms these problems are not addition or multiplication, but
+simply a set of input output mappings.  So to contrast different
+problems it is essential to come up with different types of input
+output mappings.  Clearly, given a set of inputs and outputs there is
+a finite set of input output mappings to choose from.  The individual
+binary encoded problems can be viewed as a rule which defines the
+mapping.
+
+	Logistically it is important to come up with a reasonable
+number of input bits for starters.  The number of input bits should be
+a number where back propagation can be tested quickly and easily
+without having to wait a week for each experiment to be run.  Since
+statistics is an important factor in determining the comparisons of
+learning algorithms, running four tests that take four weeks is
+certainly not as beneficial as running one thousand tests that take
+several minutes, or one hundred tests that take several hours.  An
+issue to sort out is how these problems scale, so it can be determined
+which problem size is best representative for determining accurate
+statistics in a reasonable amount of time.
+
+	{\it What is a good problem} ?  A problem where back
+propagation or herbie is able to learn the input output mapping
+perfectly on greater than ninety percent of the initialized runs.  It
+must be pointed out that in back propagation for a certain class of
+problems each run is very dependent upon the initial set of random
+weights.  So if a run is done ten times it may only converge on five
+of the runs.  Since we are interested in studying generalization, the
+problem must be stable.  Where stability is defined by the above
+definition of a good problem.  It has been determined that four to
+five input bits is a reasonable number of bits to use in running
+comparison experiments.
+
+\section{The Parity Problem}
+
+	The parity problem has been studied for a long time by
+researchers who were interested in getting neural networks to learn a
+simple input output mapping.  In the PDP series, McClelland and
+Rumelhart [1986] point out that although perceptrons were not able to
+learn the parity problem, that networks with hidden units were
+successful at this supposedly simple task.  Rumelhart and McClelland
+go on for several pages showing all the different permutations of the
+parity problem.  They experiment with changing the learning rate and
+the number of hidden units and show that it still learns but at
+different rates.
+
+	Many people who study learning algorithms use the parity
+problem as one of their first examples to test that their computer
+program is indeed working.  Numerous different studies have
+re-analyzed this problem and looked at number of hidden units,
+learning rates, etc...  Also, researchers have analyzed hundreds of
+different problems to see if back propagation could learn the input
+output mapping and usually the conclusion of the study is that indeed
+it can or can not learn a particular mapping.
+
+	However, the key point that this paper is looking at is how
+well can the algorithm generalize for a particular problem.  It just
+so happens, that for the most popular problem studied, {\it parity},
+that no generalization is possible.  The following several paragraphs
+outlines the method of experiment.
+
+\subsection{Method of Experiment}
+
+	The parity problem studied has five input units, six hidden
+units and one output unit.  Since there are five input units there are
+thirty two elements in the training set.  The value of the output unit
+is derived by simply looking at the number of ones in the input
+string.  If there is an even number of ones the output is zero, and if
+there is an odd number of ones the output is a one.  So after
+inspecting all thirty two elements in the training set half the
+outputs are ones and half the outputs are zero.
+
+	The starting point is to train the network on all thirty two
+elements in the training set just to make sure that the network can
+learn the input output mapping.  The same is true for the local linear
+methods.  As suspected, the network learns the input output mapping
+perfectly.  Most of the research in the area of learning algorithms
+stops at this point.  People will point out the average number of
+iterations it took for a particular problem to converge and the
+minimum number of hidden units needed to solve the problem.  As
+outlined earlier, generalization is the process of training on a
+subset of the learning set, and then seeing how well the elements not
+in the training set can be learned.
+
+	For the parity problem there are thirty two elements in the
+training set.  The generalization experiment is simply remove one of
+the thirty two elements	and train the network on thirty one elements.
+After the network has learned the input output mapping for the thirty
+one elements, then save the network of weights.  This network of
+weights defines the multidimensional surface that has been built in
+order to recognize thirty one different input output pairs.  This set
+of input output pairs defines the function parity in the mathematical
+sense.  If the neural network, function, or multidimensional surface
+is indeed a good representation of the idea which is called parity;
+then when the network is presented with an example that it has never
+seen before, {\it ie. the input}, then it should pop out the correct
+output value.  It just so happens that because of the nature of the
+problem, a neural network or any surface fitting algorithm will not be
+able to generalize at all on the parity problem.
+
+	This result has been demonstrated experimentally in the
+following way.  Thirty two independent experiments were run on each of
+the learning techniques.  For example, with back propagation the
+network was trained on all elements in the training set except the
+first example [0 0 0 0 0 yields 0].  After the network was trained and
+learning completed, then (0 0 0 0 0) was input into the network.
+However, instead of a zero on the output a different number was
+output.  It therefore missed on this example.  The second experiment
+was run and the network was trained on every thing except [0 0 0 0 1
+yields 1].  Again, after learning all input output pairs except the
+above one, then (0 0 0 0 1) was input to the network and once again a
+number other than (1) popped out instead of the expected value one.
+This sequence of events was repeated thirty more times, each time the
+wrong answer popped out.  The conclusion being that it is impossible
+to do generalization on the parity problem.
+
+	The reason why generalization is impossible for parity can be
+understood by thinking about the idea of surface fitting.  All of the
+problems investigated in this paper are represented on the boolean
+hypercube.  The dimension of the hypercube is the number of dimensions
+in the input space.  For the parity problem there are five input bits
+and therefore the hypercube has five dimensions.  A five dimensional
+hypercube has thirty two vertices, hence the number of elements in a
+complete training set.
+
+	In order to abstractly think about fitting surfaces through
+points on a hypercube one must think more a long the lines of the
+local linear method as opposed to the neural network.  Both the local
+linear methods and back propagation are fitting high dimensional
+surfaces to sets of data points.  This has already been demonstrated
+empirically with the parity problem since neither method was able to
+generalize at all.
+
+	Having the power to understand what the local linear method is
+doing gives one a very nice intuitive feeling of why generalization on
+the boolean hypercube for the parity problem is impossible.  The
+intuitive idea is that given a particular point on the boolean
+hypercube the nearest neighbors to that particular point all have a
+different parity than the point in question.  Therefore, one can never
+get the correct parity to a problem given one removal.  The
+following example depicts the local linear method.
+
+ Do all four (4) parity examples...
+
+\begin{center}
+\begin{tabular}{llll}
+\multicolumn{1}{c}{Case} &
+\multicolumn{2}{c}{Input} &
+\multicolumn{1}{c}{Output} \\ 
+1. & 0 & 0 & 0 \\
+2. & 0 & 1 & 1 \\
+3. & 1 & 0 & 1 \\
+4. & 1 & 1 & 0 
+\end{tabular}
+\end{center}
+
+
+ {\bf Test One,  Test for example 4}
+
+	$0x + 0y + z = 0$
+
+	$0x + 1y + z = 1$      
+
+        $1x + 0y + z = 1$
+
+        $x = 1$,  $y = 1$, $z = 0$
+
+	SO, plugging into example 4
+
+	$1x + 1y + z = 2$     
+
+ Two is not the correct answer, zero is the correct answer.
+
+ {\bf Test Two,  Test for example 3}
+
+	$0x + 0y + z = 0$
+
+	$0x + 1y + z = 1$
+      
+	$1x + 1y + z = 0$
+
+	$x = -1$,  $y = 1$,  $z = 0$
+
+        SO, plugging into example 3
+
+	$1x + 0y + z = -1$    
+
+ Negative one is not the correct answer, one is the correct answer.
+
+ {\bf Test Three, Test for example 2}
+
+	$0x + 0y + z = 0$
+
+	$1x + 0y + z = 1$
+     
+	$1x + 1y + z = 0$
+
+	$x = 1$, $y = -1$,  $z = 0$
+
+	SO, plugging into example 2
+
+	$0x + 1y + z = -1$    
+
+ Negative one is not the correct answer, one is the correct answer.
+
+ {\bf Test Four, Test for example 1}
+
+	$0x + 1y + z = 1$
+
+	$1x + 0y + z = 1$
+    
+	$1x + 1y + z = 0$
+
+	$x = -1$,  $y = -1$,  $z = 2$
+
+	SO, plugging into example 1
+
+	$0x + 0y + z = 2$     
+
+ Two is not the correct answer, zero is the correct answer.
+
+	Although these answers are incorrect, one could argue that a
+special little device or piece of software could output a {\it zero}
+when it sees a {\it two}, and output a {\it one} when it sees a {\it
+negative one}.  This is correct for the parity problem, but not for
+other problems.  Since these algorithms are general purpose and not
+specific to a particular problem, special machinery to decipher each
+individual problem is not feasible.
+
+	Note, I compared these results against the actual herbie code
+and got the same results.  This is just one more example to show how
+the local linear method actually works in detail.  As you can see, the
+local linear method will never be able to get the correct answer.  One
+can equate the back propagation algorithm to this problem to
+extrapolate the intuition of what is going on with the local neural
+network. 
+
+\section{The Encoding Problem}
+
+	In the case of the encoding problem {\it four} bits is indeed
+a reasonable number of input bits because it learns the function
+perfectly and generalizes perfectly both with one and two removals.
+However, {\it three} bits is not enough due to the fact that
+generalization is not performed as well on one and two removals.
+
+	Once again, the underlying theme through out this paper is
+that both back propagation and local linear methods perform about the
+same when it comes to generalization on a set of simple binary encoded
+problems.  It was certainly clear in the parity problem that back
+propagation and local linear methods performed exactly the same since
+neither technique was able to generalize at all.
+
+	The other main theme of this paper is that both techniques are
+doing surface fitting.  Intuitively, it is fairly simple to see that
+the local linear method is doing surface fitting.  The algorithm is
+fitting a multidimensional surface called a simplex through a set of
+points which are the nearest neighbors to the point in question.  By
+fitting a surface to a set of points, one is able to interpolate to
+other areas or sections of the surface whose domain is not part of the
+initial set of points.  To make this point clearer, a plane is defined
+by three points in space.  Once you have a visual image of the plane,
+you can move to infinite sections of that plane which are not part of
+the original three points.  It is the ability to move around on the
+plane which gives one a sense of surface fitting.
+
+	Because the back propagation algorithm deals with finding a
+set of weights in a graph or neural network, it is not quite as clear
+that this is a form of surface fitting even though mathematically you
+are indeed doing gradient descent.  Since the surface fitting idea is
+not as intuitive with back prop, one can use the comparative
+experimental results in this paper to further justify that these
+algorithms are very similar.
+
+	The experimental results for the encoding and binary
+complement problems are identical for both local linear methods and
+the neural networks.  The encoding problem is very easy to explain.
+Given a five bit input string (1 0 1 1 0), then output the same exact
+string (1 0 1 1 0).  The binary complement problem is just the
+opposite.  Given a five bit input string (1 0 1 1 0), then output the
+exact opposite string.  Although this problem appears to be very
+simple to a human being, the generalization results are good, but
+not excellent.
+
+\subsection{Experimental Results for One Removal}
+
+	In this paper, two different size input strings were analyzed
+for the same two problems, namely encoding and binary complement.  Both
+three bit input strings and four bit input strings were tested.  Two
+different size input strings were tested in order to contrast the
+results between three bit inputs and four bit inputs.  The first test
+dealt with one removal of the training set.  So just like in the
+parity problem, the network was trained with all elements in the
+training set except one.  For the three bit input string the test was
+run eight times, and for the four bit input string the test was run
+sixteen times, once for each removal.  The results of this testing was
+perfect generalization.  In other words, the input output pair that
+was not part of the training set was tested with the saved network,
+and each time it popped out the correct answer.  This is true for both
+the three bit and four bit input string; the encoding and
+binary complement problems; and the local linear methods and back
+propagation.
+
+\subsection{Experimental Results for Two Removals}
+
+	Another complete set of tests was run for two removals.  In
+the problem where there are only eight test cases and three input bits
+the complete set of removals only encompasses twenty eight sequences.
+Again, this is derived from $8 * (8 - 1) / 2$.  However, in the case
+of sixteen test cases and four input bits there are 120 possible
+sequences of removals.  Due to computer resources, only a subset of
+this group is chosen.  Twenty eight removals were chosen for both
+experiments.
+
+	The results of the runs showed that almost perfect
+generalization took place in the case of sixteen test cases, but only
+a sixty percent generalization rate occurred for the test with eight
+test cases.  The reason for this is clear.  When analyzing sixteen
+test cases two removals is only 12.5 percent of the total information,
+whereas when analyzing eight test cases two removals is twice the
+amount of information removed or 25 percent.
+
+	These results held up pretty well as the experiment continued
+for the set of sixteen test cases.  When four removals where done on
+the set of sixteen tests cases, {\it twenty five percent}, there was
+about a fifty percent generalization rate.  The final experiment
+involved eight removals out of sixteen test cases.  It was at this
+point that no generalization occurred.  Since half the information was
+missing, the network was not able to do any generalization.
+
+	This problem supports the thesis that generalization is the
+same for both back propagation and local linear methods.  Another nice
+result is that this is true for both the encoding problem and the
+binary complement problems.  In fact, the results for the encoding
+problem and binary complement problems are almost identical.  From an
+experimental point of view, this shows that both problems fall into
+the same class of ideas that surface fitting methods can solve.
+
+	From the point of view of the neural network, the network
+simply has to adjust itself to let the inputs pass through the network
+and reproduce the inputs on the output side.  The values of the
+outputs on the hidden nodes are the same as the input nodes too.  If
+you want to abstractly think of very simple functions, the function $y
+= x$ is the same type of idea.  The multidimensional surface acts just
+like the function $y = x$ when doing the encoding problem.  The binary
+complement problem is very similar.  Taking this a step further, it is
+clear that from a learning point of view, reproducing the input is
+certainly an easier cognitive task than the parity problem; although
+this is certainly beyond the scope of this research.
+
+\section{The Count Problem}
+	
+	The count problem counts the number of bits in the input
+string and outputs the number in a binary encoded output.  This
+problem appears to be very straight forward for a human being;
+however, for a neural network the problem is extremely difficult as
+the generalization results are very unsatisfactory.  In both the case
+of back prop and the local linear methods no generalization is
+possible even in the simplest case of one removal.
+
+	The generalization score is unsatisfactory for obvious
+reasons.  In this particular problem, the discrete space consists of
+points which are independent and therefore have no relationship to
+each other.  For example, when counting bits in a string, the bit
+position next to the one in question has no bearing on whether or not
+that particular position will be a one or a zero.  Contrast that with
+a digitized image of the letter {\it A}.  In this image, the points
+close by are very significant and help the person viewing the object
+decipher exactly what he or she is looking at.
+
+\section{Problems with Statistical Analysis}
+
+	When doing generalization with two removals, a problem in
+statistics presents itself and it is not real clear how to deal with
+it.  One removal is a simple statistical problem.  If you have a five
+bit input string you simply do thirty two tests one for each removal.
+However, when doing two removals the number of possible removals
+increases quadratically.  For example, on a two bit input string the
+following rule applies.
+
+\begin{center}
+\begin{tabular}{lllll}
+\multicolumn{1}{c}{Case} &
+\multicolumn{2}{c}{Input} &
+\multicolumn{2}{c}{Output} \\
+0. & 0 & 0 & 0 & 0 \\
+1. & 0 & 1 & 0 & 1 \\
+2. & 1 & 0 & 1 & 0 \\
+3. & 1 & 1 & 1 & 1 
+\end{tabular}
+\end{center}
+
+	The number of possible two removals is  $n * (n - 1) / 2$
+where $n = 4$, the number of elements in the training set.  So, in this
+case the number of possible removals is $4 * (4 - 1) / 2 = 6$.  They are
+(01, 02, 03, 12, 13, 23)...
+
+	However for three bit input strings.
+
+\begin{center}
+\begin{tabular}{lllllll}
+\multicolumn{1}{c}{Case} &
+\multicolumn{3}{c}{Input} &
+\multicolumn{3}{c}{Output} \\
+0. & 0 & 0 & 0 & 0 & 0 & 0 \\
+1. & 0 & 0 & 1 & 0 & 0 & 1 \\
+2. & 0 & 1 & 0 & 0 & 1 & 0 \\
+3. & 0 & 1 & 1 & 0 & 1 & 1 \\
+4. & 1 & 0 & 0 & 1 & 0 & 0 \\
+5. & 1 & 0 & 1 & 1 & 0 & 1 \\
+6. & 1 & 1 & 0 & 1 & 1 & 0 \\
+7. & 1 & 1 & 1 & 1 & 1 & 1 
+\end{tabular}
+\end{center}
+
+	In this particular case $n = 8$ and the number of possible
+removals is $8 * (8 - 1) / 2 = 28$.  They are (01, 02, 03, 04, 05, 06,
+07, 12, 13, 14, 15, 16, 17, 23, 24, 25, 26, 27, 34, 35, 36, 37, 45,
+46, 47, 56, 57, 67)...
+
+	Clearly, it is not feasible to do all the cases of two
+removals especially when you are dealing with input strings of size
+six or greater.  So what one has to do is take a subset of this larger
+set of removals.  One way to take a subset would be to randomly select
+a fixed number of removals from the overall set.  Although at first
+glance this appears to be a reasonable solution, in practicality it is
+only marginal.  The reason being that depending on which removals one
+selects, the results can be very different due to the fact that
+certain elements on the hypercube close together cause different
+effects than elements farther apart.  When you start to scale these
+problems and the hypercubes get large, the statistics for one random
+set of removals is not statistically significant.  This leads to a set
+of a set of random removals.
+
+\end{document}

@@ -1,0 +1,76 @@
+# Time Comparisons
+
+In this chapter two types of time comparisons are explained. The first
+deals with the theoretical issues of space and time when comparing the
+two methods. The second section looks at actual timing studies.
+
+## Space and Time Trade Off
+
+One of the most common criteria for comparing algorithms is the amount
+of space and time that the algorithm consumes. In order to compare back
+propagation and the local linear methods an analysis of these two
+factors is examined. This argument could be coined *the space time trade
+off*.
+
+Back propagation has two stages, the first stage is training and the
+second stage is delivery. In order to better understand these ideas an
+analogy to a real world environment will be explained. Given a set of
+one million input output pairs it might take back propagation one month
+to learn the complete mapping. Once the mapping is learned and stored in
+the network the training stage is completed. The delivery phase simply
+entails distributing the network to researchers interested in doing
+generalization on this particular function. It might also be possible
+that in the future the network will be delivered in silicon. In either
+case, once the network has been delivered, running the algorithm is
+simple and very fast. The amount of time it takes to propagate an input
+value through a network and produce an output value is around one second
+in software and much quicker in hardware. Also note that the previous
+million training values are no longer needed for the computation. The
+space and time needed to generate an output value once training is
+completed is independent of the number of items in the training set.
+
+This is not the case for local linear methods. There is no training
+phase in this algorithm. Every single time an output value is requested,
+the algorithm has to run on all million points to generate an answer.
+Clearly this takes up a lot of space relative to the delivery phase of
+back propagation.
+
+From an intial point of view, if one just wants to see if a learning
+algorithm can generalize a particular function the local linear method
+is the obvious choice. Because with a million points, it is a lot
+quicker to run the local linear method and come up with an answer in one
+hour, than wait one month for an answer from back propagation. If on the
+average local linear is three orders of magnitude quicker than back
+propagation, then the one hour / one month analogy is fairly accurate.
+
+In certain instances, it might be better to use back propagation
+especially if one is going to be doing a lot of generalizing in the
+delivery phase. After running back propgation for one month and the
+training is complete, then it will not take more than one second to
+produce an output value given any input. If you need to run local linear
+more than one thousand times, then back propagation will be faster and
+more efficient for both space and time.
+
+## Timing Studies
+
+The local linear method is somewhere between 3 to 4 orders of magnitude
+faster than back propagation.
+
+A comparative study has been done to see how long it takes for back
+propagation to learn an input output mapping as the size of the problem
+or network is increased. The amount of time it takes to learn the parity
+problem for an input size of eight is 930 minutes of cpu time on the
+Sparc Station. This is a very large number considering the fact that the
+problem was run on the fastest scientific work station on the market
+today. The Sparc Station is bench marked at approximately twelve MIPS.
+Considering that eight input bits is not that large some estimates were
+done on problems ranging in the area of twenty to thirty input bits.
+These estimates were based on the average number of iterations it takes
+for these problems to converge. Clearly one could not tie up a Sun
+Station for one month just to see how long it takes back prop to learn
+the parity problem with thirty input bits.
+
+The point of this study is just to show that although back prop may be a
+popular algorithm, it certainly is not the optimal algorithm for doing
+generalization. Especially since the local linear methods perform as
+well as back prop on the discrete problems chosen in this paper.

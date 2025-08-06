@@ -1,0 +1,64 @@
+# Conclusions and Final Comments
+
+The results presented in this paper are over all not very optimistic for
+someone who is interested in solving the AI problem in the near future.
+The point being that although these techniques are able to learn an
+input output mapping fairly well, the techniques fail miserably when it
+comes to generalization. It might just be that the approach for solving
+the AI problem is incorrect. The algorithms presented in this paper are
+intended to be general in a sense that the same algorithm is trying to
+solve many different problems. This philosophy is of course motivated by
+the neural network architecture which is intended to be mimicking the
+brain. At least this was the reasoning that the inventors or these
+algorithms put forth in their early articles and still to this day.
+
+One of the major criticisms of these techniques is why do addition or
+multiplication in such a round about way especially when it can be done
+in silicon in microseconds. The same argument can be presented for all
+the problems presented in this paper. An input string can be parsed and
+the numbers of ones counted a lot quicker than the time it takes to fit
+a surface to a boolean hypercube. Although these criticisms may be
+valid, the point of the paper is not to analyze individual algorithms.
+
+## What size problem gives the best generalization ?
+
+This question is one that seemed important from the onset of the
+research but in thinking about the problem more it is clear that this
+issue has a fairly simple answer. Many have argued that in order to get
+statistically significant results that large problems have to be
+analyzed. This principle is not as important as the percentage of
+information that is used for generalization. For example, if there are
+sixteen elements in the problem set and one does generalization on fifty
+percent of the set; will the results be similar if there are one
+thousand elements in the training set and generalization is done on five
+hundred elements. This question is important and needs some further
+research done to answer it convincingly.
+
+## And finally\...
+
+One of the big open questions of research in the area of learning
+algorithms is to be able to classify discrete problems. One should be
+able to look at a particular type of problem and then determine which
+learning algorithm is best suited for the task at hand.
+
+Ideally, with many studies completed, the research community will begin
+to understand which methods are suitable for a certain class of
+problems. Clearly being able to group discrete types of problems into
+classes would be a major step forward in the field of learning
+algorithms.
+
+Examples of this type of idea can has been studied by Wolfram \[1986\]
+in determining what types of dynamical systems give rise to Cellular
+Automata, and the problems studied by Garey and Johnson \[1979\] in
+grouping classes of problems in the NP class.
+
+Just touching the surface of this idea would be a major endeavor
+especially in the area of simple discrete problems and certainly an open
+research question. In this paper, it is shown that for simple binary
+encoded problems, it really does not matter which technique one uses for
+*accuracy* of learning. However, the local linear techniques are orders
+of magnitude quicker in run time efficiency. The speed result is enough
+of a reason for more people to consider using local linear techniques
+when considering which learning algorithm will best suit their need.
+Especially after realizing that mathematically both techniques are
+basically doing surface fitting.
